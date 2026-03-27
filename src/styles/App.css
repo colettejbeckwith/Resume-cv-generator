@@ -1,0 +1,18 @@
+/* App.css */
+
+.app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    display: grid;
+    flex: 1;
+    grid-template-rows: auto 1fr auto;
+    align-items: center;
+}
+
+header, footer {
+    padding: 10px;
+}

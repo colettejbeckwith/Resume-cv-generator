@@ -1,0 +1,29 @@
+/* ProgressBar.css */
+
+nav {
+    background-color: white;
+    color: black;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    margin: 40px 150px;
+    border: 1px solid black;
+    border-radius: 25px;
+    min-height: 60px;
+    overflow: hidden;
+}
+
+.tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border: .5px solid rgb(219, 217, 217);
+    background-color: white;
+    color: black;
+}
+
+.tab:hover, .tab.active {
+    background-color: rgb(0, 210, 252);
+    border: none;
+    color: white;
+}

@@ -1,0 +1,25 @@
+/* NavButtons.css */
+
+.nav-buttons {
+    display: flex;
+    align-items: center;
+    padding: 30px 90px;
+    justify-content: space-between;
+}
+
+.nav-buttons button {
+    background-color: white;
+    color: black;
+    border-radius: 25px;
+    height: 40px;
+    width: 120px;
+    font-size: large;
+}
+
+.nav-buttons button:hover {
+    background-color: rgb(0, 210, 252);
+}
+
+.hidden-button {
+    visibility: hidden;
+}
