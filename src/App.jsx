@@ -6,7 +6,7 @@ import './styles/App.css'
 import ProgressBar from './components/ProgressBar'
 import NavButtons from './components/NavButtons'
 import ContentBlock from './components/ContentBlock'
-import WorkHistory from './components/sections/WorkHistory'
+// import WorkHistory from './components/sections/WorkHistory'
 
 
 function App() {
@@ -107,3 +107,5 @@ function App() {
 export default App
 
 // TODO: add pages to education and work history sections, add review page, generate resume
+
+//text area expands outside the bounds of the page

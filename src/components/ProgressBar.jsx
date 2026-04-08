@@ -18,17 +18,19 @@ function ProgressBar({ step, setStep, furthestStepReached }) {
             {steps.map((label, index) => {
                 const stepNumber = index + 1;
                 const isUnlocked = stepNumber <= furthestStepReached;
+                isUnlocked;
                 const isActive = stepNumber === step;
 
                 return (
                     <button
                         key={index}
                         type="button"
-                        disabled={!isUnlocked}
+                        // disabled={!isUnlocked}
                         className={isActive ? 'active-step tab' : 'tab'}
-                        onClick={() => {
-                            if (isUnlocked) setStep(stepNumber);
-                        }}
+                        // onClick={() => {
+                        //     if (isUnlocked) setStep(stepNumber);
+                        // }}
+                        onClick={() => {setStep(stepNumber)}}
                     >
                         {label}
                     </button>
