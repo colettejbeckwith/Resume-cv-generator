@@ -6,7 +6,8 @@ function Submit({ formData }) {
     formData;
     return (
         <section className='content-pane'>
-            Submit
+            <h2>Review</h2>
+            
         </section>
     )
 }

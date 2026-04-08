@@ -2,17 +2,40 @@
 
 import '../styles/ProgressBar.css'
 
-function ProgressBar({ step, setStep }) {
+function ProgressBar({ step, setStep, furthestStepReached }) {
 
+
+    const steps = [
+        'Personal',
+        'Education',
+        'Work History',
+        'Other Skills',
+        'Review'
+    ];
+    
     return (
-        <nav>
-            <button onClick={() => setStep(1)} className={step === 1 ? 'tab active' : 'tab'}>Personal Info</button>
-            <button onClick={() => setStep(2)} className={step === 2 ? 'tab active' : 'tab'}>Education</button>
-            <button onClick={() => setStep(3)} className={step === 3 ? 'tab active' : 'tab'}>Work History</button>
-            <button onClick={() => setStep(4)} className={step === 4 ? 'tab active' : 'tab'}>Misc.</button>
-            <button onClick={() => setStep(5)} className={step === 5 ? 'tab active' : 'tab'}>Submit</button>
-        </nav>
-    )
+        <section className="progress-bar">
+            {steps.map((label, index) => {
+                const stepNumber = index + 1;
+                const isUnlocked = stepNumber <= furthestStepReached;
+                const isActive = stepNumber === step;
+
+                return (
+                    <button
+                        key={index}
+                        type="button"
+                        disabled={!isUnlocked}
+                        className={isActive ? 'active-step tab' : 'tab'}
+                        onClick={() => {
+                            if (isUnlocked) setStep(stepNumber);
+                        }}
+                    >
+                        {label}
+                    </button>
+                );
+            })}
+        </section>
+    );
 }
 
 export default ProgressBar

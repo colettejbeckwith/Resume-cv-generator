@@ -1,6 +1,6 @@
 /* ProgressBar.css */
 
-nav {
+.progress-bar {
     background-color: white;
     color: black;
     display: grid;
@@ -17,13 +17,21 @@ nav {
     align-items: center;
     justify-content: center;
     height: 100%;
-    border: .5px solid rgb(219, 217, 217);
+    border: 1px solid rgb(122, 147, 168);
     background-color: white;
     color: black;
 }
 
-.tab:hover, .tab.active {
+.tab:hover, .active-step {
     background-color: rgb(0, 210, 252);
-    border: none;
+    /* border: none; */
     color: white;
+    cursor: pointer;
+
+}
+
+.progress-bar button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    filter: grayscale(0.2)
 }

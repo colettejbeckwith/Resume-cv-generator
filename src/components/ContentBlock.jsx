@@ -9,10 +9,10 @@ import WorkHistory from './sections/WorkHistory'
 import Misc from './sections/Misc'
 import Submit from './sections/Submit'
 
-function ContentBlock({ step, setStep, formData, setFormData }) {
+function ContentBlock({ step, setStep, formData, setFormData, setFurthestStepReached }) {
     
     // start
-    if (step === 0) return <StartPage setStep={setStep} />;
+    if (step === 0) return <StartPage setStep={setStep} setFurthestStepReached={setFurthestStepReached} />;
 
     // personal info
     if (step === 1) return <PersonalInfo formData={formData.personal} setFormData={setFormData} />;

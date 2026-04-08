@@ -1,13 +1,202 @@
 .content-pane {
     background-color: white;
-
-    height: 100%;
-
-    margin: 60px;
+    min-height: 0;
     border-radius: 25px;
+    overflow: hidden;
+    height: 100%;
+    margin: 0 30px;
+}
 
-    display: flex;
+.form-content {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100%;
+    min-height: 0;
+}
+    
+.label-field-box {
+    display: grid;
+    min-height: 0;
+    overflow-y: scroll;
+    padding: 20px 40px;
+}
+
+.label-field-box label {
+    justify-self: end;
+    text-align: right;
+    font-size: 0.95rem;
+    color: black;
+    padding-right: .8em;
+}
+
+.label-field-box input:not([type="checkbox"]) {
+    background-color: rgb(240, 236, 236);
+    color: black;
+    border-radius: 999px;
+    width: 280px;
+    height: 35px;
+    font-size: large;
+    padding: 5px 12px;
+    border: none;
+}
+
+.label-field-box textarea {
+    background-color: rgb(240, 236, 236);
+    color: black;
+    border-radius: 10px;
+    padding: 5px;
+    width: 280px;
+    scrollbar-color: transparent;
+    border: none;
+}
+
+.label-field-box input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.remove-responsibility {
+    background-color: white;
+    color: black;
+    border: none;
+    font-weight: bold;
+    height: max-content;
+    font-size: medium;
+    border-radius: 25px;
+    padding: 5px 10px;
+}
+
+.remove-responsibility:hover {
+    background-color: red;
+    color: white;
+}
+
+.label-field-box input[type="date"], .label-field-box input[type="number"] {
+    width: 175px;
+}
+
+.personal-fields, .education-fields, .work-history-fields {
+    display: grid;
+    grid-template-columns: 150px 300px 165px 300px;
+    column-gap: 12px;
+    row-gap: 24px;
+    text-wrap: nowrap;
     justify-content: center;
     align-items: center;
 }
 
+.misc-fields textarea {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.field-with-error {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.field-error {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    color: #c62828;
+    font-size: 0.7rem;
+    margin-top: 4px;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.input-error, .input-error:focus {
+    border: 2px solid #c62828 !important;
+}
+
+.required-star {
+    color: red;
+    font-size: x-large;
+}
+
+
+/* Add another button */
+
+.add-another-button {
+    background: none;
+    border: none;
+    font-size: larger;
+    font-weight: bold;
+    color: rgb(0, 210, 252);
+    text-align: left;
+}
+
+.add-another-button-2 {
+    background: none;
+    border: none;
+    font-weight: bold;
+    color: rgb(0, 210, 252);
+    text-align: center;
+}
+
+.add-another-button:hover, .add-another-button-2:hover {
+    text-decoration: underline;
+}
+
+/* end add another button  */
+
+
+/* start page */
+
+.start-pane {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.start-button {
+    background-color: rgb(0, 210, 252);
+    border-radius: 999px;
+    width: 250px;
+    height: 70px;
+    font-size: x-large;
+    font-weight: bold;
+    border: none;
+    box-shadow: 2px 2px 5px rgb(146, 146, 146);
+    top: 0;
+    transition: all 0.1s ease;
+}
+
+.start-button:hover {
+    background-color: rgb(139, 222, 239);
+}
+
+.start-button:active {
+    top: 6px;
+    box-shadow: 0px 0px 0px #00823F;
+}
+
+/* end start page */
+
+/* general styling */
+
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: rgb(0, 210, 252);
+    cursor: pointer;
+}
+
+.checkbox-style {
+    justify-self: flex-start;
+}
+
+.content-pane h2 {
+    color: black;
+    padding: 30px;
+    overflow: hidden;
+    margin: 0;
+}
+
+/* end general styling */
