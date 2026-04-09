@@ -59,7 +59,3 @@ function Submit({ formData }) {
 }
 
 export default Submit
-
-// conditional needed for all non-required fields
-// Other skills needs to turn a csv into a discrete list
-// layout issues

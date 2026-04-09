@@ -30,7 +30,11 @@ function PersonalInfo({ formData, setFormData }) {
         <section className='content-pane form-content'>
 
             
-            <h2>Personal Info</h2>
+            <div className='sub-page-header'>
+                <p></p>
+                <h2>Personal Info</h2>
+                <p><b className='required-star'>*</b> - required fields</p>
+            </div>
             <section className='label-field-box personal-fields'>
                 <label htmlFor="name"><b className='required-star'>*</b>Full Name:</label>
                 <input 
@@ -119,16 +123,10 @@ function PersonalInfo({ formData, setFormData }) {
                         )
                     )} 
                 />
-
             </section>
-            <footer><b className='required-star'>*</b> - required fields</footer>
         </section>
     )
 }
 
 export default PersonalInfo
-
-// name, phone, email, city, title
-
-// TODO: validate,autoformat phone number and email
 

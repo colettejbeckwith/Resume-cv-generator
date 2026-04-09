@@ -9,7 +9,6 @@
 main {
     display: grid;
     flex: 1;
-    /* align-items: center; */
     grid-template-rows: auto minmax(0, 1fr) auto;
     min-height: 0;
     height: 100%;

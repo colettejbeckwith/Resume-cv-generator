@@ -1,184 +1,252 @@
 // WorkHistory.jsx
 
+import { useEffect, useRef, useState } from 'react'
 import '../../styles/sections.css'
 
 function WorkHistory({ formData, setFormData }) {
+
+
+    const scrollContainerRef = useRef(null);
+    const entryRefs = useRef([]);
+
+    const [deletingIds, setDeletingIds] = useState([]);
+    const prevLengthRef = useRef(formData.length);
+
+    useEffect(() => {
+        if (formData.length > prevLengthRef.current) {
+            const lastEntry = entryRefs.current[formData.length - 1];
+            if (lastEntry) {
+                lastEntry.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+        prevLengthRef.current = formData.length;
+    }, [formData.length]);
+
+    const handleDelete = (id) => {
+        setDeletingIds((prev) => [...prev, id]);
+
+        setTimeout(() => {
+            setFormData((prev) => ({
+                ...prev,
+                work: prev.work.filter((item) => item.id !== id)
+            }));
+            setDeletingIds((prev) => prev.filter((itemId) => itemId !== id));
+        }, 300);
+    };
+
+
     return (
         <section className='content-pane form-content'>
-            <h2>Work History</h2>
-            {formData.map((workHistory, index) => {
-                const today = new Date().toISOString().split('T')[0];
-                const startAfterToday = workHistory.startDate && workHistory.startDate >= today;
-                const endBeforeStart = workHistory.startDate && workHistory.endDate && workHistory.endDate < workHistory.startDate;
-                // const missingRequiredFields = !workHistory.startDate || !workHistory.endDate || !workHistory.company || !workHistory.position || !workHistory.responsibility1;
+            <div className='sub-page-header'>
+                <p></p>
+                <h2>Work History</h2>
+                <p><b className='required-star'>*</b> - required fields</p>
+            </div>
 
 
-                return (
-                    <section key={index} className='label-field-box work-history-fields'>
+            <section className='multi-entry-scroll' ref={scrollContainerRef}>
+                {formData.map((workHistory, index) => {
 
-                        <label htmlFor="company-name"><b className='required-star'>*</b>Company Name:</label>
-                        <input 
-                            type="text" 
-                            id='company-name' 
-                            required 
-                            value={workHistory.company} 
-                            onChange={(e) => 
-                                setFormData((prev) => ({
-                                    ...prev,
-                                    work: prev.work.map((item, i) =>
-                                        i === index ? { ...item, company: e.target.value } : item
-                                    ) 
-                                }))
-                            }
-                        />
+                    const today = new Date().toISOString().split('T')[0];
+                    const startAfterToday = workHistory.startDate && workHistory.startDate >= today;
+                    const endBeforeStart = workHistory.startDate && workHistory.endDate && workHistory.endDate < workHistory.startDate;
 
-                        <label htmlFor="position"><b className='required-star'>*</b>Position:</label>
-                        <input 
-                            type="text" 
-                            id='position' 
-                            required 
-                            value={workHistory.position} 
-                            onChange={(e) => 
-                                setFormData((prev) => ({
-                                    ...prev,
-                                    work: prev.work.map((item, i) =>
-                                        i === index ? { ...item, position: e.target.value } : item
-                                    ) 
-                                }))
-                            }
-                        />
+                    return (
+                        <section key={workHistory.id} ref={(el) => entryRefs.current[index] = el} className={`multi-entry-page label-field-box work-history-fields ${index < formData.length - 1 ? 'entry-divider' : ''} ${deletingIds.includes(workHistory.id) ? 'deleting-entry' : ''}`}>
+                            <div className="entry-header-row">
+                                <h3 className="entry-title">Employer {index + 1}</h3>
+                                {formData.length > 1 && (
+                                    <button
+                                        type="button"
+                                        className="delete-entry-button"
+                                        onClick={() => handleDelete(workHistory.id)}
+                                    >
+                                        Delete Employer
+                                    </button>
+                                )}
+                            </div>
 
-                        <label htmlFor="work-start-date">
-                            <b className='required-star'>*</b>Start Date:
-                        </label>
-                        <div className="field-with-error">
+                            <label htmlFor={`company-name-${index}`}><b className='required-star'>*</b>Company Name:</label>
                             <input 
-                                className={startAfterToday ? 'input-error' : ''}
-                                type="date"
-                                id='work-start-date' 
+                                type="text" 
+                                id={`company-name-${index}`}
                                 required 
-                                value={workHistory.startDate} 
-                                max={today}
+                                value={workHistory.company} 
                                 onChange={(e) => 
                                     setFormData((prev) => ({
                                         ...prev,
                                         work: prev.work.map((item, i) =>
-                                            i === index ? { ...item, startDate: e.target.value } : item
+                                            i === index ? { ...item, company: e.target.value } : item
                                         ) 
                                     }))
-                                } 
+                                }
                             />
 
-                            {startAfterToday && (
-                                <p className="field-error">
-                                    Start date must be before today.
-                                </p>
-                            )}
-                        </div>
-
-                        <label htmlFor="responsibility1"><b className='required-star'>*</b>Responsibility 1:</label>
-                        <textarea
-                            value={workHistory.responsibility1}
-                            id='responsibility1'
-                            onChange={(e) =>
-                                setFormData((prev) => ({
-                                    ...prev,
-                                    work: prev.work.map((item, i) =>
-                                        i === index ? { ...item, responsibility1: e.target.value } : item
-                                    )
-                                }))
-                            }
-                        />
-
-                        <label htmlFor="work-end-date">
-                            <b className='required-star'>*</b>End Date:
-                        </label>
-                        <div className="field-with-error">
+                            <label htmlFor={`position-${index}`}><b className='required-star'>*</b>Position:</label>
                             <input 
-                                className={endBeforeStart && !workHistory.stillEmployed ? 'input-error' : ''}
-                                type="date" 
-                                id='work-end-date' 
-                                value={workHistory.endDate}
-                                required={!workHistory.stillEmployed}
-                                min={workHistory.startDate || undefined}
-                                disabled={workHistory.stillEmployed}
+                                type="text" 
+                                id={`position-${index}`}
+                                required 
+                                value={workHistory.position} 
                                 onChange={(e) => 
                                     setFormData((prev) => ({
                                         ...prev,
                                         work: prev.work.map((item, i) =>
-                                            i === index ? { ...item, endDate: e.target.value } : item
+                                            i === index ? { ...item, position: e.target.value } : item
+                                        ) 
+                                    }))
+                                }
+                            />
+
+                            <label htmlFor={`work-start-date-${index}`}><b className='required-star'>*</b>Start Date:</label>
+                            <div className="field-with-error">
+                                <input 
+                                    className={startAfterToday ? 'input-error' : ''}
+                                    type="date"
+                                    id={`work-start-date-${index}`}
+                                    required 
+                                    value={workHistory.startDate} 
+                                    max={today}
+                                    onChange={(e) => 
+                                        setFormData((prev) => ({
+                                            ...prev,
+                                            work: prev.work.map((item, i) =>
+                                                i === index ? { ...item, startDate: e.target.value } : item
+                                            ) 
+                                        }))
+                                    } 
+                                />
+
+                                {startAfterToday && (
+                                    <p className="field-error">
+                                        Start date must be before today.
+                                    </p>
+                                )}
+                            </div>
+
+                            <label htmlFor={`responsibility1-${index}`}><b className='required-star'>*</b>Responsibility 1:</label>
+                            <textarea
+                                value={workHistory.responsibility1}
+                                id={`responsibility1-${index}`}
+                                onChange={(e) =>
+                                    setFormData((prev) => ({
+                                        ...prev,
+                                        work: prev.work.map((item, i) =>
+                                            i === index ? { ...item, responsibility1: e.target.value } : item
+                                        )
+                                    }))
+                                }
+                            />
+
+                            <label htmlFor={`work-end-date-${index}`}>
+                                <b className='required-star'>*</b>End Date:
+                            </label>
+                            <div className="field-with-error">
+                                <input 
+                                    className={endBeforeStart && !workHistory.stillEmployed ? 'input-error' : ''}
+                                    type="date" 
+                                    id={`work-end-date-${index}`}
+                                    value={workHistory.endDate}
+                                    required={!workHistory.stillEmployed}
+                                    min={workHistory.startDate || undefined}
+                                    disabled={workHistory.stillEmployed}
+                                    onChange={(e) => 
+                                        setFormData((prev) => ({
+                                            ...prev,
+                                            work: prev.work.map((item, i) =>
+                                                i === index ? { ...item, endDate: e.target.value } : item
+                                            ) 
+                                        }))
+                                    } 
+                                />
+
+                                {endBeforeStart && !workHistory.stillEmployed && (
+                                    <p className="field-error">
+                                        End date must be after start date.
+                                    </p>
+                                )}
+                            </div>
+
+                            <label htmlFor={`responsibility2-${index}`}>Responsibility 2:</label>
+                            <textarea
+                                value={workHistory.responsibility2}
+                                id={`responsibility2-${index}`}
+                                onChange={(e) =>
+                                    setFormData((prev) => ({
+                                        ...prev,
+                                        work: prev.work.map((item, i) =>
+                                            i === index ? { ...item, responsibility2: e.target.value } : item
+                                        )
+                                    }))
+                                }
+                            />
+
+                            <label htmlFor={`still-employed-${index}`}>Still Employed?</label>
+                            <input
+                                className='checkbox-style'
+                                type="checkbox" 
+                                id={`still-employed-${index}`}
+                                checked={workHistory.stillEmployed} 
+                                onChange={(e) => 
+                                    setFormData((prev) => ({
+                                        ...prev,
+                                        work: prev.work.map((item, i) =>
+                                            i === index ? { ...item, stillEmployed: e.target.checked, endDate: e.target.checked ? '' : item.endDate} : item
                                         ) 
                                     }))
                                 } 
                             />
 
-                            {endBeforeStart && !workHistory.stillEmployed && (
-                                <p className="field-error">
-                                    End date must be after start date.
-                                </p>
-                            )}
-                        </div>
-
-                        <label htmlFor="responsibility2">Responsibility 2:</label>
-                        <textarea
-                            value={workHistory.responsibility2}
-                            id='responsibility2'
-                            onChange={(e) =>
-                                setFormData((prev) => ({
-                                    ...prev,
-                                    work: prev.work.map((item, i) =>
-                                        i === index ? { ...item, responsibility2: e.target.value } : item
-                                    )
-                                }))
-                            }
-                        />
-
-                        <label htmlFor="still-employed">Still Employed?</label>
-                        <input
-                            className='checkbox-style'
-                            type="checkbox" 
-                            id='still-employed' 
-                            checked={workHistory.stillEmployed} 
-                            onChange={(e) => 
-                                setFormData((prev) => ({
-                                    ...prev,
-                                    work: prev.work.map((item, i) =>
-                                        i === index ? { ...item, stillEmployed: e.target.checked, endDate: e.target.checked ? '' : item.endDate} : item
-                                    ) 
-                                }))
-                            } 
-                        />
-
-                        <label htmlFor="responsibility3">Responsibility 3:</label>
-                        <textarea
-                            value={workHistory.responsibility3}
-                            id='responsibility3'
-                            onChange={(e) =>
-                                setFormData((prev) => ({
-                                    ...prev,
-                                    work: prev.work.map((item, i) =>
-                                        i === index ? { ...item, responsibility3: e.target.value } : item
-                                    )
-                                }))
-                            }
-                        />
-
-                    
-                        <section></section>
-                        <section></section>
-
-                    
-                        <section></section>
-                        <button className='add-another-button'>+ Add Another Job</button>
-
-                    </section>
-                );
-            })}
-            <footer><b className='required-star'>*</b> - required fields</footer>
+                            <label htmlFor={`responsibility3-${index}`}>Responsibility 3:</label>
+                            <textarea
+                                value={workHistory.responsibility3}
+                                id={`responsibility3-${index}`}
+                                onChange={(e) =>
+                                    setFormData((prev) => ({
+                                        ...prev,
+                                        work: prev.work.map((item, i) =>
+                                            i === index ? { ...item, responsibility3: e.target.value } : item
+                                        )
+                                    }))
+                                }
+                            />
+                        </section>
+                    );
+                })}
+            
+                <section className='add-another-row'>
+                    <button
+                        type='button'
+                        className='add-another-button'
+                        onClick={() => 
+                            setFormData((prev) => ({
+                                ...prev,
+                                work: [
+                                    ...prev.work,
+                                    {
+                                        id: crypto.randomUUID(),
+                                        company: '',
+                                        position: '',
+                                        startDate: '',
+                                        endDate: '',
+                                        stillEmployed: false,
+                                        responsibility1: '',
+                                        responsibility2: '',
+                                        responsibility3: ''
+                                    }
+                                ]
+                            }))
+                        }
+                    >
+                        + Add Another Employer
+                    </button>
+                </section>
+            </section>
         </section>
     )
 }
 
 export default WorkHistory
-
-// company, position, startDate, endDate, stillEmployed, responsibilities[]

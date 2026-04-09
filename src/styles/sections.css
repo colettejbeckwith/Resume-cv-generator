@@ -1,3 +1,54 @@
+/* sections.css */
+
+.sub-page-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+}
+
+.entry-heading {
+    grid-column: 1 / -1;
+    margin: 0 0 8px 0;
+    color: black;
+}
+
+.entry-header-row {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.entry-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: black;
+    margin: 0;
+}
+
+.multi-entry-scroll {
+    position: relative;
+    min-height: 0;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    display: flex;
+    flex-direction: column;
+    scroll-snap-type: none;
+}
+
+.multi-entry-page {
+    flex: 0 0 90%;
+    min-height: 100%;
+    box-sizing: border-box;
+    scroll-snap-align: start;
+    transition: opacity 0.3s ease, transform 0.3s ease; 
+}
+
+.multi-entry-page.label-field-box {
+    overflow-y: visible;
+}
+
 .content-pane {
     background-color: white;
     min-height: 0;
@@ -48,7 +99,7 @@
     width: 280px;
     scrollbar-color: transparent;
     resize: none;
-    overflow: none;
+    overflow: auto;
     border: none;
 }
 
@@ -124,6 +175,29 @@
     font-size: x-large;
 }
 
+.delete-entry-button {
+    background: none;
+    border: none;
+    color: rgb(200, 0, 0);
+    font-weight: bold;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.deleting-entry {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.delete-entry-button:hover {
+    text-decoration: underline;
+}
+
+.entry-divider {
+    border-bottom: 1px solid rgb(220, 220, 220);
+    padding-bottom: 24px;
+}
+
 
 /* Add another button */
 
@@ -148,6 +222,16 @@
     text-decoration: underline;
 }
 
+.add-another-row {
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    background: white;
+}
+
 /* end add another button  */
 
 
@@ -163,15 +247,6 @@
 .start-pane {
     gap: 40px;
 }
-
-/* .submit-pane {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-} */
-
-
 
 .start-button {
     background-color: rgb(0, 210, 252);
