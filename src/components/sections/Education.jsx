@@ -10,7 +10,12 @@ function Education({ formData, setFormData }) {
     const [deletingIds, setDeletingIds] = useState([]);
     const prevLengthRef = useRef(formData.length);
 
-    const handleDelete = (id) => {
+    const pendingDeleteIndexRef = useRef(null);
+    const pendingActionRef = useRef(null);
+
+    const handleDelete = (id, index) => {
+        pendingActionRef.current = 'delete';
+        pendingDeleteIndexRef.current = index;
         setDeletingIds((prev) => [...prev, id]);
 
         setTimeout(() => {
@@ -23,7 +28,7 @@ function Education({ formData, setFormData }) {
     };
 
     useEffect(() => {
-        if (formData.length > prevLengthRef.current) {
+        if (formData.length > prevLengthRef.current && pendingActionRef.current === 'add') {
             const lastEntry = entryRefs.current[formData.length - 1];
             if (lastEntry) {
                 lastEntry.scrollIntoView({
@@ -32,7 +37,22 @@ function Education({ formData, setFormData }) {
                 });
             }
         }
+
+        if (formData.length < prevLengthRef.current && pendingActionRef.current === 'delete') {
+            const targetIndex = Math.max(0, pendingDeleteIndexRef.current - 1);
+            const targetEntry = entryRefs.current[targetIndex];
+
+            if (targetEntry) {
+                targetEntry.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
         prevLengthRef.current = formData.length;
+        pendingActionRef.current = null;
+        pendingDeleteIndexRef.current = null;
     }, [formData.length]);
 
 
@@ -53,7 +73,7 @@ function Education({ formData, setFormData }) {
                     const invalidGpa = edu.gpa !== '' && (Number(edu.gpa) < 0 || Number(edu.gpa) > 4);
 
                     return (
-                        <section key={edu.id} ref={(el) => entryRefs.current[index] = el} className={`multi-entry-page label-field-box education-fields ${index < formData.length - 1 ? 'entry-divider' : ''} ${deletingIds.includes(edu.id) ? 'deleting-entry' : ''}`}>
+                        <section key={edu.id} ref={(el) => entryRefs.current[index] = el} className={`multi-entry-page label-field-box work-history-fields ${deletingIds.includes(edu.id) ? 'deleting-entry' : ''}`}>
 
                             <div className="entry-header-row">
                                 <h3 className="entry-title">School {index + 1}</h3>
@@ -61,7 +81,7 @@ function Education({ formData, setFormData }) {
                                     <button
                                         type="button"
                                         className="delete-entry-button"
-                                        onClick={() => handleDelete(edu.id)}
+                                        onClick={() => handleDelete(edu.id, index)}
                                     >
                                         Delete School
                                     </button>
@@ -244,7 +264,8 @@ function Education({ formData, setFormData }) {
                     <button
                         type='button'
                         className='add-another-button'
-                        onClick={() => 
+                        onClick={() => {
+                            pendingActionRef.current = 'add';
                             setFormData((prev) => ({
                                 ...prev,
                                 education: [
@@ -263,7 +284,7 @@ function Education({ formData, setFormData }) {
                                     }
                                 ]
                             }))
-                        }
+                        }}
                     >
                         + Add Another School
                     </button>

@@ -12,20 +12,12 @@ function WorkHistory({ formData, setFormData }) {
     const [deletingIds, setDeletingIds] = useState([]);
     const prevLengthRef = useRef(formData.length);
 
-    useEffect(() => {
-        if (formData.length > prevLengthRef.current) {
-            const lastEntry = entryRefs.current[formData.length - 1];
-            if (lastEntry) {
-                lastEntry.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        }
-        prevLengthRef.current = formData.length;
-    }, [formData.length]);
+    const pendingDeleteIndexRef = useRef(null);
+    const pendingActionRef = useRef(null);
 
-    const handleDelete = (id) => {
+    const handleDelete = (id, index) => {
+        pendingActionRef.current = 'delete';
+        pendingDeleteIndexRef.current = index;
         setDeletingIds((prev) => [...prev, id]);
 
         setTimeout(() => {
@@ -37,6 +29,33 @@ function WorkHistory({ formData, setFormData }) {
         }, 300);
     };
 
+    useEffect(() => {
+        if (formData.length > prevLengthRef.current && pendingActionRef.current === 'add') {
+            const lastEntry = entryRefs.current[formData.length - 1];
+            if (lastEntry) {
+                lastEntry.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        if (formData.length < prevLengthRef.current && pendingActionRef.current === 'delete') {
+            const targetIndex = Math.max(0, pendingDeleteIndexRef.current - 1);
+            const targetEntry = entryRefs.current[targetIndex];
+
+            if (targetEntry) {
+                targetEntry.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        prevLengthRef.current = formData.length;
+        pendingActionRef.current = null;
+        pendingDeleteIndexRef.current = null;
+    }, [formData.length]);
 
     return (
         <section className='content-pane form-content'>
@@ -55,14 +74,14 @@ function WorkHistory({ formData, setFormData }) {
                     const endBeforeStart = workHistory.startDate && workHistory.endDate && workHistory.endDate < workHistory.startDate;
 
                     return (
-                        <section key={workHistory.id} ref={(el) => entryRefs.current[index] = el} className={`multi-entry-page label-field-box work-history-fields ${index < formData.length - 1 ? 'entry-divider' : ''} ${deletingIds.includes(workHistory.id) ? 'deleting-entry' : ''}`}>
+                        <section key={workHistory.id} ref={(el) => entryRefs.current[index] = el} className={`multi-entry-page label-field-box work-history-fields ${deletingIds.includes(workHistory.id) ? 'deleting-entry' : ''}`}>
                             <div className="entry-header-row">
                                 <h3 className="entry-title">Employer {index + 1}</h3>
                                 {formData.length > 1 && (
                                     <button
                                         type="button"
                                         className="delete-entry-button"
-                                        onClick={() => handleDelete(workHistory.id)}
+                                        onClick={() => handleDelete(workHistory.id, index)}
                                     >
                                         Delete Employer
                                     </button>
@@ -221,7 +240,8 @@ function WorkHistory({ formData, setFormData }) {
                     <button
                         type='button'
                         className='add-another-button'
-                        onClick={() => 
+                        onClick={() => {
+                            pendingActionRef.current = 'add';
                             setFormData((prev) => ({
                                 ...prev,
                                 work: [
@@ -239,7 +259,7 @@ function WorkHistory({ formData, setFormData }) {
                                     }
                                 ]
                             }))
-                        }
+                        }}
                     >
                         + Add Another Employer
                     </button>

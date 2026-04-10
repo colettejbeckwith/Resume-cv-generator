@@ -49,7 +49,7 @@ function App() {
       }
     ],
     misc: {
-      otherSkills: [''],
+      otherSkills: [],
     }
   });
 

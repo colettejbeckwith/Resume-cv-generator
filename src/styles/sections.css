@@ -31,10 +31,11 @@
     position: relative;
     min-height: 0;
     overflow-y: auto;
-    scroll-behavior: smooth;
     display: flex;
     flex-direction: column;
-    scroll-snap-type: none;
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: 0;
+    /* padding-bottom: 32px; */
 }
 
 .multi-entry-page {
@@ -42,7 +43,8 @@
     min-height: 100%;
     box-sizing: border-box;
     scroll-snap-align: start;
-    transition: opacity 0.3s ease, transform 0.3s ease; 
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    scroll-snap-stop: always;
 }
 
 .multi-entry-page.label-field-box {
@@ -142,12 +144,81 @@
     align-items: center;
 }
 
-.misc-fields textarea {
+.misc-fields {
     display: flex;
-    width: 100%;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    gap: 20px;
 }
+
+.skills-input-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    justify-content: center;
+    
+}
+
+.skill-input {
+    width: 800px;
+}
+
+.add-skill-button {
+    background-color: rgb(0, 210, 252);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.add-skill-button:hover {
+    background-color: rgb(139, 222, 239);
+    color: black;
+}
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    width: 100%;
+}
+
+.skill-pill {
+    display: flex;
+    align-items: center;
+    color: black;
+    gap: 10px;
+    background-color: rgb(240, 236, 236);
+    border-radius: 999px;
+    padding: 8px 14px;
+}
+
+.remove-skill-button {
+    background: none;
+    border: none;
+    color: rgb(200, 0, 0);
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0;
+}
+
+.remove-skill-button:hover, .clear-skills-button:hover {
+    text-decoration: underline;
+}
+
+.clear-skills-button {
+    background: none;
+    border: none;
+    color: rgb(200, 0, 0);
+    font-weight: bold;
+    cursor: pointer;
+}
+
 
 .field-with-error {
     position: relative;
@@ -186,6 +257,7 @@
 
 .deleting-entry {
     opacity: 0;
+    transform: scale(0.98) translateY(-12px);
     pointer-events: none;
 }
 
@@ -228,7 +300,7 @@
     z-index: 5;
     display: flex;
     justify-content: center;
-    padding: 20px 0;
+    padding: 12px 0;
     background: white;
 }
 
