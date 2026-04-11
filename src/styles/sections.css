@@ -35,7 +35,6 @@
     flex-direction: column;
     scroll-snap-type: y mandatory;
     scroll-padding-top: 0;
-    /* padding-bottom: 32px; */
 }
 
 .multi-entry-page {
@@ -270,6 +269,164 @@
     padding-bottom: 24px;
 }
 
+.review-pane {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+}
+
+.review-section {
+    width: min(800px, 100%);
+    background-color: rgb(248, 248, 248);
+    border-radius: 18px;
+    margin: 0 auto;    
+}
+
+.review-section-personal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 28px 36px;
+}
+
+.review-section h3 {
+    margin-top: 0;
+    margin: 12px;
+    text-decoration: underline;
+    color: black;
+}
+
+.review-entry {
+    margin: 20px 0;
+    gap: 5px;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.review-entry:not(:last-child) {
+    position: relative;
+}
+
+.review-entry:not(:last-child)::after {
+    content: '';
+    display: block;
+    width: 60%;
+    height: 1px;
+    background-color: rgb(220, 220, 220);
+    margin: 20px auto 0;
+}
+
+.review-entry h4 {
+    margin: 0;
+    text-align: center;
+}
+
+.review-line {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 8px 0;
+    color: black;
+}
+
+.review-label {
+    font-weight: bold;
+    text-align: right;
+}
+
+.review-skills-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+}
+
+.review-skills-list li {
+    background-color: rgb(240, 236, 236);
+    color: black;
+    border-radius: 999px;
+    padding: 6px 14px;
+
+}
+
+.review-generate-row {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px
+}
+
+.review-value {
+    text-align: left;
+}
+
+.review-subheading {
+    margin: 0 0 12px 0;
+    color: rgb(90, 90, 90);
+    font-weight: 600;
+    text-align: center;
+}
+
+.review-details {
+    margin: 0 auto;
+    position: relative;
+    left: -8px;
+}
+
+.review-details-personal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.review-date-range {
+    margin: 0 0 14px 0;
+    color: rgb(90, 90, 90);
+    font-weight: 600;
+    text-align: center;
+    color: black
+}
+
+.review-responsibilities {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+    margin-top: 14px;
+}
+
+.review-responsibility-block {
+    width: min(560px, 100%);
+    text-align: center;
+}
+
+.review-responsibility-label {
+    margin: 0 0 6px 0;
+    font-weight: bold;
+    color: black;
+}
+
+.review-responsibility-text {
+    margin: 0;
+    color: black;
+}
+
+.review-skills {
+    padding-bottom: 20px;
+}
+
+.review-skills h3 {
+    padding-bottom: 10px;
+}
+
 
 /* Add another button */
 
@@ -365,3 +522,20 @@ input[type="checkbox"] {
 }
 
 /* end general styling */
+
+.personal-heading {
+    text-decoration: none !important;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-wrap: nowrap;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: black;
+    text-align: center;
+}
+
+.personal-detail-line {
+    margin: 0;
+    color: black;
+    text-align: center;
+}
