@@ -65,18 +65,17 @@ function App() {
 
   const educationStepHasErrors = formData.education.some((edu) => {
     const today = new Date().toISOString().split('T')[0];
-    const invalidGpa = edu.gpa !== '' && (Number(edu.gpa) < 0 || Number(edu.gpa) > 4);
     const startAfterToday = edu.startDate && edu.startDate >= today;
     const endBeforeStartDate = edu.startDate && edu.endDate && edu.endDate < edu.startDate;
     const missingRequiredFields = !edu.school || !edu.degree || !edu.major || !edu.startDate || (!edu.stillAttending && !edu.endDate);
-    return (missingRequiredFields || invalidGpa || startAfterToday || endBeforeStartDate)
+    return (missingRequiredFields || startAfterToday || endBeforeStartDate)
   });
 
   const workHistoryStepHasErrors = formData.work.some((work) => {
     const today = new Date().toISOString().split('T')[0];
     const startAfterToday = work.startDate && work.startDate >= today;
     const endBeforeStartDate = work.startDate && work.endDate && work.endDate < work.startDate;
-    const missingRequiredFields = !work.startDate || !work.endDate || !work.company || !work.position || !work.responsibility1;
+    const missingRequiredFields = !work.startDate || (!work.endDate && !work.stillEmployed) || !work.company || !work.position || !work.responsibility1;
     return (startAfterToday || endBeforeStartDate || missingRequiredFields)
   });
 
@@ -99,7 +98,7 @@ function App() {
         <main>
           <ProgressBar step={step} setStep={setStep} furthestStepReached={furthestStepReached} />
           <ContentBlock step={step} setStep={setStep} formData={formData} setFormData={setFormData} setFurthestStepReached={setFurthestStepReached} />
-          <NavButtons step={step} setStep={setStep} isNextDisabled={isNextDisabled} setFurthestStepReached={setFurthestStepReached} />
+          {step !== 0 && (<NavButtons step={step} setStep={setStep} isNextDisabled={isNextDisabled} setFurthestStepReached={setFurthestStepReached} />)}
         </main>
         <footer>© Beckwith Software Production</footer>
       </div>)

@@ -37,16 +37,6 @@ function Submit({ formData }) {
         return `${formattedStart} - ${formattedEnd}`;
     };
 
-    const renderField = (label, value) => {
-        if (value === '' || value === null || value === undefined) return null;
-        return (
-            <div className="review-line">
-                <span className="review-label">{label}:</span>
-                <span className="review-value">{value}</span>
-            </div>
-        );
-    };
-
     return (
         <section className='content-pane form-content'>
             <h2>Review</h2>
@@ -55,18 +45,20 @@ function Submit({ formData }) {
                     <h3 className='personal-heading'>{formData.personal.name}</h3>
 
                     <div className='review-details-personal'>
+                        {formData.personal.title && (
+                            <p className="personal-detail-line">{formData.personal.title}</p>
+                        )}
+                        {formData.personal.city && (
+                            <p className="personal-detail-line">{formData.personal.city}</p>
+                        )}
                         {formData.personal.phone && (
                             <p className="personal-detail-line">{formData.personal.phone}</p>
                         )}
                         {formData.personal.email && (
                             <p className="personal-detail-line">{formData.personal.email}</p>
                         )}
-                        {formData.personal.city && (
-                            <p className="personal-detail-line">{formData.personal.city}</p>
-                        )}
-                        {formData.personal.title && (
-                            <p className="personal-detail-line">{formData.personal.title}</p>
-                        )}
+                        
+                        
                     </div>
                 </section>
                 <section className="review-section">
@@ -75,14 +67,14 @@ function Submit({ formData }) {
                         <section key={edu.id || index} className="review-entry">
                             <h4>{edu.school}</h4>
                             {edu.degree && <p className="review-subheading">{edu.degree} in {edu.major}</p>}
+                            {edu.minor && <p className='review-subheading'>Minor in {edu.minor}</p>}
                             <p className="review-date-range">
                                 {formatDateRange(edu.startDate, edu.endDate, edu.stillAttending)}
                             </p>
 
                             <div className='review-details'>
-                                {renderField('Minor', edu.minor)}
-                                {renderField('GPA', edu.gpa)}
-                                {edu.degreeCompleted && renderField('Degree Status', 'Degree obtained')}
+                                {/* {renderField('Minor in', edu.minor)} */}
+                                {edu.degreeCompleted && 'Degree Obtained'}
                             </div>
                         </section>
                     ))}

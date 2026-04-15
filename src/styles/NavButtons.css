@@ -28,3 +28,29 @@
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+/* phone layout */
+
+@media (max-width: 768px) {
+    .nav-buttons {
+        width: 100%;
+        position: sticky;
+        bottom: 0;
+        /* z-index: 20; */
+        margin: 0;
+        padding: 12px 16px calc(6px + env(safe-area-inset-bottom));
+        display: flex;
+        justify-content: center;
+        /* align-items: flex-end; */
+        align-items: center;
+        box-sizing: border-box;
+        gap: 10px;
+
+        /* background-color: green; */
+    }
+
+    .nav-buttons button {
+        min-width: 50%;
+        /* border-radius: 10px; */
+    }
+}

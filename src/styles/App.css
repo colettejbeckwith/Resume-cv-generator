@@ -22,3 +22,23 @@ main > * {
 header, footer {
     padding: 10px;
 }
+
+@media (max-width: 768px) {
+    header,
+    footer {
+        display: none;
+    }
+
+    .app-container {
+        min-height: 100vh;
+    }
+
+    main {
+        min-height: 100vh;
+        /* padding: 5px; */
+        /* padding: 0;
+        margin: 0; */
+        grid-template-rows: minmax(0, 1fr) auto;
+        /* background-color: red; */
+    }
+}

@@ -141,24 +141,10 @@ function WorkHistory({ formData, setFormData }) {
 
                                 {startAfterToday && (
                                     <p className="field-error">
-                                        Start date must be before today.
+                                        Select date before today.
                                     </p>
                                 )}
                             </div>
-
-                            <label htmlFor={`responsibility1-${index}`}><b className='required-star'>*</b>Responsibility 1:</label>
-                            <textarea
-                                value={workHistory.responsibility1}
-                                id={`responsibility1-${index}`}
-                                onChange={(e) =>
-                                    setFormData((prev) => ({
-                                        ...prev,
-                                        work: prev.work.map((item, i) =>
-                                            i === index ? { ...item, responsibility1: e.target.value } : item
-                                        )
-                                    }))
-                                }
-                            />
 
                             <label htmlFor={`work-end-date-${index}`}>
                                 <b className='required-star'>*</b>End Date:
@@ -184,24 +170,10 @@ function WorkHistory({ formData, setFormData }) {
 
                                 {endBeforeStart && !workHistory.stillEmployed && (
                                     <p className="field-error">
-                                        End date must be after start date.
+                                        Select date after start date.
                                     </p>
                                 )}
                             </div>
-
-                            <label htmlFor={`responsibility2-${index}`}>Responsibility 2:</label>
-                            <textarea
-                                value={workHistory.responsibility2}
-                                id={`responsibility2-${index}`}
-                                onChange={(e) =>
-                                    setFormData((prev) => ({
-                                        ...prev,
-                                        work: prev.work.map((item, i) =>
-                                            i === index ? { ...item, responsibility2: e.target.value } : item
-                                        )
-                                    }))
-                                }
-                            />
 
                             <label htmlFor={`still-employed-${index}`}>Still Employed?</label>
                             <input
@@ -217,6 +189,36 @@ function WorkHistory({ formData, setFormData }) {
                                         ) 
                                     }))
                                 } 
+                            />
+
+                            <label htmlFor={`responsibility1-${index}`}><b className='required-star'>*</b>Responsibility 1:</label>
+                            <textarea
+                                value={workHistory.responsibility1}
+                                id={`responsibility1-${index}`}
+                                onChange={(e) =>
+                                    setFormData((prev) => ({
+                                        ...prev,
+                                        work: prev.work.map((item, i) =>
+                                            i === index ? { ...item, responsibility1: e.target.value } : item
+                                        )
+                                    }))
+                                }
+                            />
+
+                            
+
+                            <label htmlFor={`responsibility2-${index}`}>Responsibility 2:</label>
+                            <textarea
+                                value={workHistory.responsibility2}
+                                id={`responsibility2-${index}`}
+                                onChange={(e) =>
+                                    setFormData((prev) => ({
+                                        ...prev,
+                                        work: prev.work.map((item, i) =>
+                                            i === index ? { ...item, responsibility2: e.target.value } : item
+                                        )
+                                    }))
+                                }
                             />
 
                             <label htmlFor={`responsibility3-${index}`}>Responsibility 3:</label>

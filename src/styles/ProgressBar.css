@@ -24,7 +24,6 @@
 
 .tab:hover, .active-step {
     background-color: rgb(0, 210, 252);
-    /* border: none; */
     color: white;
     cursor: pointer;
 
@@ -34,4 +33,12 @@
     opacity: 0.6;
     cursor: not-allowed;
     filter: grayscale(0.2)
+}
+
+/* phone layout */
+
+@media (max-width: 768px) {
+    .progress-bar {
+        display: none;
+    }
 }

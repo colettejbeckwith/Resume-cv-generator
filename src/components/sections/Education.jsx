@@ -70,10 +70,8 @@ function Education({ formData, setFormData }) {
                     const today = new Date().toISOString().split('T')[0];
                     const startAfterToday = edu.startDate && edu.startDate >= today;
                     const endBeforeStart = edu.startDate && edu.endDate && edu.endDate < edu.startDate;
-                    const invalidGpa = edu.gpa !== '' && (Number(edu.gpa) < 0 || Number(edu.gpa) > 4);
-
                     return (
-                        <section key={edu.id} ref={(el) => entryRefs.current[index] = el} className={`multi-entry-page label-field-box work-history-fields ${deletingIds.includes(edu.id) ? 'deleting-entry' : ''}`}>
+                        <section key={edu.id} ref={(el) => entryRefs.current[index] = el} className={`multi-entry-page label-field-box education-fields ${deletingIds.includes(edu.id) ? 'deleting-entry' : ''}`}>
 
                             <div className="entry-header-row">
                                 <h3 className="entry-title">School {index + 1}</h3>
@@ -136,32 +134,6 @@ function Education({ formData, setFormData }) {
                                 }
                             />
 
-                            <label htmlFor={`gpa-${index}`}>GPA:</label>
-                            <div className="field-with-error">
-                                <input
-                                    className={invalidGpa ? 'input-error' : ''}
-                                    type="number"
-                                    id={`gpa-${index}`}
-                                    min="0.0"
-                                    max="4.0"
-                                    step="0.1"
-                                    value={edu.gpa}
-                                    onChange={(e) =>
-                                        setFormData((prev) => ({
-                                            ...prev,
-                                            education: prev.education.map((item, i) =>
-                                                i === index ? { ...item, gpa: e.target.value } : item
-                                            )
-                                        }))
-                                    }
-                                />
-                                {invalidGpa && (
-                                <p className="field-error">GPA must be between 0.0 and 4.0.</p>
-                                )}
-                            </div>
-
-                            
-
                             <label htmlFor={`minor-${index}`}>Minor:</label>
                             <input 
                                 type="text" 
@@ -196,28 +168,11 @@ function Education({ formData, setFormData }) {
                                     }
                                 />
                                 {startAfterToday && (
-                                    <p className="field-error">Start date must be before today.</p>
+                                    <p className="field-error">Select date before today.</p>
                                 )}
                             </div>
 
-
-                            <label htmlFor={`still-attending-${index}`}>Still attending?</label>
-                            <input 
-                                className='checkbox-style' 
-                                type="checkbox" 
-                                id={`still-attending-${index}`}
-                                checked={edu.stillAttending} 
-                                onChange={(e) => 
-                                    setFormData((prev) => ({
-                                        ...prev,
-                                        education: prev.education.map((item, i) =>
-                                            i === index ? { ...item, stillAttending: e.target.checked, endDate: e.target.checked ? '' : item.endDate, degreeCompleted: e.target.checked ? false : item.degreeCompleted, } : item
-                                        )
-                                    }))
-                                }
-                            />
-
-                            <label htmlFor={`end-date-${index}`}><b className='required-star'>*</b>End date:</label>
+                            <label htmlFor={`end-date-${index}`}><b className='required-star'>*</b>End Date:</label>
                             <div className="field-with-error">
                                 <input
                                     className={endBeforeStart && !edu.stillAttending ? 'input-error' : ''}
@@ -237,11 +192,26 @@ function Education({ formData, setFormData }) {
                                     }
                                 />
                                 {endBeforeStart && !edu.stillAttending && (
-                                    <p className="field-error">End date must be after start date.</p>
+                                    <p className="field-error">Select date after start date.</p>
                                 )}
                             </div>
 
-                            <label htmlFor={`degree-completed-${index}`}>Degree Obtained?</label>
+                            <label htmlFor={`still-attending-${index}`}>Still attending?</label>
+                            <input 
+                                className='checkbox-style' 
+                                type="checkbox" 
+                                id={`still-attending-${index}`}
+                                checked={edu.stillAttending} 
+                                onChange={(e) => 
+                                    setFormData((prev) => ({
+                                        ...prev,
+                                        education: prev.education.map((item, i) =>
+                                            i === index ? { ...item, stillAttending: e.target.checked, endDate: e.target.checked ? '' : item.endDate, degreeCompleted: e.target.checked ? false : item.degreeCompleted, } : item
+                                        )
+                                    }))
+                                }
+                            />
+                            <label htmlFor={`degree-completed-${index}`}>Degree Earned?</label>
                             <input 
                                 className='checkbox-style' 
                                 type="checkbox" 
@@ -256,7 +226,6 @@ function Education({ formData, setFormData }) {
                                     }))
                                 }
                             />
-
                         </section>
                     );
                 })}

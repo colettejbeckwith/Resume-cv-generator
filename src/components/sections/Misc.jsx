@@ -80,7 +80,8 @@ function Misc({ formData, setFormData }) {
                         className='add-skill-button'
                         onClick={addSkill}
                     >
-                        Add Skill
+                        <span className='add-skill-full'>Add Skill</span>
+                        <span className='add-skill-mobile'>+</span>
                     </button>
                 </div>
                 <div>
@@ -113,30 +114,6 @@ function Misc({ formData, setFormData }) {
             <footer>Add skills one at a time.</footer>
         </section>
     )
-
-
-    // return (
-    //     <section className='content-pane form-content'>
-    //         <h2><label htmlFor='other-skills'>Other Skills</label></h2>
-    //         <section className='label-field-box misc-fields'>
-    //             <textarea 
-    //                 className="other-skills" 
-    //                 id="other-skills" 
-    //                 value={formData.otherSkills} 
-    //                 onChange={(e) => 
-    //                     setFormData((prev) => ({
-    //                         ...prev, 
-    //                         misc: {
-    //                             ...prev.misc, 
-    //                             otherSkills: e.target.value
-    //                         }
-    //                     }))
-    //                 }
-    //             />
-    //         </section>
-    //         <footer>List your skills. Separate them with a comma.</footer>
-    //     </section>
-    // )
 }
 
 export default Misc
