@@ -150,7 +150,8 @@ function WorkHistory({ formData, setFormData }) {
                                 <b className='required-star'>*</b>End Date:
                             </label>
                             <div className="field-with-error">
-                                <input 
+                                <input
+                                    key={`work-end-${workHistory.id}-${workHistory.stillEmployed}`}
                                     className={endBeforeStart && !workHistory.stillEmployed ? 'input-error' : ''}
                                     type="date" 
                                     id={`work-end-date-${index}`}

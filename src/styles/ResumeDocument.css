@@ -1,0 +1,157 @@
+.resume-document {
+    width: 8.5in;
+    min-height: 11in;
+    margin: 0 auto;
+    padding: 0.45in 0.55in 0.55in;
+    box-sizing: border-box;
+    background: white;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.35;
+    display: flex;
+    flex-direction: column;
+}
+
+.resume-header {
+    text-align: center;
+    margin-bottom: 26px;
+    padding-bottom: 14px;
+}
+
+
+
+.resume-header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.resume-header-title {
+    margin: 4px 0 4px;
+    font-size: 1.02rem;
+    font-weight: 600;
+}
+
+.resume-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.resume-contact-line {
+    margin: 8px 0 0;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+.resume-section {
+    margin-bottom: 22px;
+}
+
+.resume-section h2 {
+    margin: 0 0 12px 0;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    border-bottom: 1.5px solid #959595;
+    padding-bottom: 4px;
+}
+
+.resume-entry {
+    margin-bottom: 16px;
+}
+
+.resume-entry-topline {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+}
+
+.resume-entry-topline h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.resume-entry-dates {
+    margin: 0;
+    font-size: 0.92rem;
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+.resume-entry-subline {
+    margin: 3px 0 0;
+    font-size: 0.95rem;
+    font-style: italic;
+}
+
+.resume-entry-detail {
+    margin: 4px 0 0;
+    font-size: 0.72rem;
+}
+
+.resume-bullets {
+    margin: 8px 0 0 18px;
+    padding: 0;
+    max-width: 100%;
+}
+
+.resume-bullets li {
+    margin-bottom: 6px;
+    font-size: 0.94rem;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.resume-skills {
+    margin: 0;
+    font-size: 0.94rem;
+}
+
+@page {
+    size: letter portrait;
+    margin: 0.5in;
+}
+
+@media print {
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .resume-document {
+        width: 100%;
+        min-height: 10in;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .resume-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+}
+
+.resume-entry,
+.resume-entry-subline,
+.resume-entry-detail,
+.resume-entry-topline,
+.resume-entry-topline h3,
+.resume-entry-dates,
+.resume-skills,
+.resume-contact-line {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}

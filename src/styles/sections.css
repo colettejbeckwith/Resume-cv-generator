@@ -374,14 +374,6 @@
     text-align: center;
 }
 
-.review-details {
-    margin: 0 auto;
-    position: relative;
-    left: -8px;
-    font-weight: bold;
-    color: green
-}
-
 .review-details-personal {
     display: flex;
     flex-direction: column;
@@ -529,6 +521,18 @@ input[type="checkbox"] {
 }
 
 /* end general styling */
+
+.print-only-wrapper {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+}
+
+@media print {
+    .print-only-wrapper {
+        position: static;
+    }
+}
 
 .personal-heading {
     text-decoration: none !important;
@@ -1007,22 +1011,14 @@ input[type="checkbox"] {
     .personal-detail-line,
     .review-responsibility-label,
     .review-responsibility-text {
-        overflow-wrap: break-word;
-        word-break: break-word;
-        white-space: normal;
         text-align: center;
     }
 
-    .personal-heading {
-        text-wrap: wrap;
-    }
-
-    .review-details,
     .review-details-personal {
-        position: static;
-        left: auto;
+        /* position: static; */
+        /* left: auto; */
         width: 100%;
-        margin: 0 auto;
+        /* margin: 0 auto; */
     }
 
     .review-line {

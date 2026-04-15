@@ -175,6 +175,7 @@ function Education({ formData, setFormData }) {
                             <label htmlFor={`end-date-${index}`}><b className='required-star'>*</b>End Date:</label>
                             <div className="field-with-error">
                                 <input
+                                    key={`edu-end-${edu.id}-${edu.stillAttending}`}
                                     className={endBeforeStart && !edu.stillAttending ? 'input-error' : ''}
                                     type="date"
                                     id={`end-date-${index}`}

@@ -1,5 +1,9 @@
 // Submit.jsx
 
+import { useRef } from 'react'
+import { useReactToPrint } from 'react-to-print';
+import ResumeDocument from '../ResumeDocument';
+
 import '../../styles/sections.css'
 
 function Submit({ formData }) {
@@ -36,6 +40,13 @@ function Submit({ formData }) {
 
         return `${formattedStart} - ${formattedEnd}`;
     };
+
+    const printRef = useRef(null);
+
+    const handlePrint = useReactToPrint({
+        contentRef: printRef,
+        documentTitle: `${formData.personal.name || 'resume'}-resume`,
+    })
 
     return (
         <section className='content-pane form-content'>
@@ -128,10 +139,15 @@ function Submit({ formData }) {
                 )}
 
                 <section className="review-generate-row">
-                    <button className='start-button' type="button">
+                    <button className='start-button' type="button" onClick={handlePrint}>
                         Generate Resume
                     </button>
                 </section>
+                <div className='print-only-wrapper'>
+                    <div ref={printRef}>
+                        <ResumeDocument formData={formData} />
+                    </div>
+                </div>
             </section>
         </section>
     )

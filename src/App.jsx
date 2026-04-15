@@ -96,9 +96,9 @@ function App() {
       <div className="app-container">
         <header><h1>Resume/CV Generator</h1></header>
         <main>
-          <ProgressBar step={step} setStep={setStep} furthestStepReached={furthestStepReached} />
+          <ProgressBar step={step} setStep={setStep} furthestStepReached={furthestStepReached} isNextDisabled={isNextDisabled} />
           <ContentBlock step={step} setStep={setStep} formData={formData} setFormData={setFormData} setFurthestStepReached={setFurthestStepReached} />
-          {step !== 0 && (<NavButtons step={step} setStep={setStep} isNextDisabled={isNextDisabled} setFurthestStepReached={setFurthestStepReached} />)}
+          {step !== 0 && (<NavButtons step={step} setStep={setStep} isNextDisabled={isNextDisabled} setFurthestStepReached={setFurthestStepReached} formData={formData} />)}
         </main>
         <footer>© Beckwith Software Production</footer>
       </div>)

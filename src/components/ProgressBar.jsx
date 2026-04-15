@@ -2,7 +2,7 @@
 
 import '../styles/ProgressBar.css'
 
-function ProgressBar({ step, setStep, furthestStepReached }) {
+function ProgressBar({ step, setStep, furthestStepReached, isNextDisabled }) {
 
 
     const steps = [
@@ -16,21 +16,26 @@ function ProgressBar({ step, setStep, furthestStepReached }) {
     return (
         <section className="progress-bar">
             {steps.map((label, index) => {
+
+
                 const stepNumber = index + 1;
+
+
                 const isUnlocked = stepNumber <= furthestStepReached;
-                isUnlocked;
                 const isActive = stepNumber === step;
+
+                const isFutureStep = stepNumber > step;
+                const shouldDisable = !isUnlocked || (isFutureStep && isNextDisabled)
 
                 return (
                     <button
                         key={index}
                         type="button"
-                        // disabled={!isUnlocked}
+                        disabled={shouldDisable}
                         className={isActive ? 'active-step tab' : 'tab'}
-                        // onClick={() => {
-                        //     if (isUnlocked) setStep(stepNumber);
-                        // }}
-                        onClick={() => {setStep(stepNumber)}}
+                        onClick={() => {
+                            if (isUnlocked) setStep(stepNumber);
+                        }}
                     >
                         {label}
                     </button>

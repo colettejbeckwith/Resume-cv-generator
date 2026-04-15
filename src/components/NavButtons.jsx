@@ -2,7 +2,11 @@
 
 import '../styles/NavButtons.css'
 
-function NavButtons({ step, setStep, isNextDisabled, setFurthestStepReached }) {
+import { useRef } from 'react'
+import { useReactToPrint } from 'react-to-print'; 
+import ResumeDocument from './ResumeDocument';
+
+function NavButtons({ step, setStep, isNextDisabled, setFurthestStepReached, formData }) {
 
     const handleNext = () => {
         if (step === 5 || isNextDisabled) return;
@@ -10,6 +14,13 @@ function NavButtons({ step, setStep, isNextDisabled, setFurthestStepReached }) {
         setStep(nextStep);
         setFurthestStepReached((prev) => Math.max(prev, nextStep));
     };
+
+    const printRef = useRef(null);
+
+    const handlePrint = useReactToPrint({
+        contentRef: printRef,
+        documentTitle: `${formData.personal.name || 'resume'}-resume`,
+    });
 
     if (step === 0) {
 
@@ -23,10 +34,17 @@ function NavButtons({ step, setStep, isNextDisabled, setFurthestStepReached }) {
 
     if (step === 5) {
         return (
+            <>
             <section className='nav-buttons'>
                 <button onClick={() => setStep(step - 1)} disabled={step === 0} >Previous</button>
-                <button type='submit'>Generate</button>
+                <button type='submit' onClick={handlePrint}>Generate</button>
             </section>
+            <div className='print-only-wrapper'>
+                    <div ref={printRef}>
+                        <ResumeDocument formData={formData} />
+                    </div>
+            </div>
+            </>
         )
 
     }
