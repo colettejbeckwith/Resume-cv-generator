@@ -469,7 +469,6 @@
 
 .start-pane {
     gap: 40px;
-
     justify-content: center;
     align-items: center;
     /* padding: 16px; */
@@ -711,11 +710,6 @@ input[type="checkbox"] {
         margin: 0;
         padding: 0;
         font-size: xx-large;
-
-    }
-
-    .form-content {
-        /* background-color: yellow; */
     }
 
     .form-content > h2 {
@@ -785,10 +779,6 @@ input[type="checkbox"] {
         row-gap: 0px;
         align-items: start;
         justify-content: start;
-    }
-
-    .entry-header-row {
-        /* background-color: blue; */
     }
 
     .education-fields .entry-header-row,

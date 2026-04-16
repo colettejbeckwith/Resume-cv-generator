@@ -1,5 +1,7 @@
 # Resume/CV Generator
 
+[Live Demo](https://resume-cv-generator-lake.vercel.app/)
+
 A responsive multi-step resume builder built with React and Vite that allows users to enter personal, education, work history, and skills information, review the completed data, and generate a print-friendly resume.
 
 ## Screenshots
@@ -42,6 +44,7 @@ Instead of being a simple static form, this app guides the user through the resu
 - Vite
 - JavaScript
 - CSS
+- HTML
 - react-to-print
 
 ## What I Focused On
@@ -71,6 +74,8 @@ src/
     ResumeDocument.jsx
   styles/
     App.css
+    NavButtons.css
+    ProgressBar.css
     sections.css
     ResumeDocument.css
   App.jsx
