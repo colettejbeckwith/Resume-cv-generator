@@ -2,7 +2,7 @@
 
 import '../styles/ProgressBar.css'
 
-function ProgressBar({ step, setStep, furthestStepReached, isNextDisabled }) {
+function ProgressBar({ step, setStep, isNextDisabled, maxAccessibleStep }) {
 
 
     const steps = [
@@ -21,11 +21,13 @@ function ProgressBar({ step, setStep, furthestStepReached, isNextDisabled }) {
                 const stepNumber = index + 1;
 
 
-                const isUnlocked = stepNumber <= furthestStepReached;
+                const isUnlocked = stepNumber <= maxAccessibleStep;
                 const isActive = stepNumber === step;
-
                 const isFutureStep = stepNumber > step;
-                const shouldDisable = !isUnlocked || (isFutureStep && isNextDisabled)
+
+                const shouldDisable =
+                !isUnlocked ||
+                (isFutureStep && isNextDisabled);
 
                 return (
                     <button

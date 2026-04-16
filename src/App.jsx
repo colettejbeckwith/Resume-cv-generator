@@ -13,6 +13,8 @@ function App() {
   const [step, setStep] = useState(0);
   const [furthestStepReached, setFurthestStepReached] = useState(0);
 
+  furthestStepReached;
+
   const [formData, setFormData] = useState({
     personal: {
       name: '',
@@ -92,11 +94,18 @@ function App() {
     }
   })();
 
+  const maxAccessibleStep = (() => {
+    if (personalStepHasErrors) return 1;
+    if (educationStepHasErrors) return 2;
+    if (workHistoryStepHasErrors) return 3;
+    return 5;
+  })();
+
   return (
       <div className="app-container">
         <header><h1>Resume/CV Generator</h1></header>
         <main>
-          <ProgressBar step={step} setStep={setStep} furthestStepReached={furthestStepReached} isNextDisabled={isNextDisabled} />
+          <ProgressBar step={step} setStep={setStep} isNextDisabled={isNextDisabled} maxAccessibleStep={maxAccessibleStep} />
           <ContentBlock step={step} setStep={setStep} formData={formData} setFormData={setFormData} setFurthestStepReached={setFurthestStepReached} />
           {step !== 0 && (<NavButtons step={step} setStep={setStep} isNextDisabled={isNextDisabled} setFurthestStepReached={setFurthestStepReached} formData={formData} />)}
         </main>
