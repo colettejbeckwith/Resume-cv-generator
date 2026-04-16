@@ -1,6 +1,6 @@
 # Resume/CV Generator
 
-[Live Demo](https://resume-cv-generator-lake.vercel.app/)
+Click for a LIVE DEMO [here](https://resume-cv-generator-lake.vercel.app/)
 
 A responsive multi-step resume builder built with React and Vite that allows users to enter personal, education, work history, and skills information, review the completed data, and generate a print-friendly resume.
 
